@@ -28,48 +28,54 @@
 
     <!-- Pantalla de Signos Vitales -->
     <section class="screen" id="vitals">
+
         <h2 class="title">Tus Signos Vitales</h2>
+
         <div class="grid-2x2">
-        <div class="card vital">
-            <img src="icons/temp.png" alt="Temperatura" class="ico">
-            <h3>Temperatura</h3>
-            <p id="temp">-- °C</p>
+            <div class="card vital">
+                <img src="icons/temp.png" alt="Temperatura" class="ico">
+                <h3>Temperatura</h3>
+                <p id="temp">-- °C</p>
+            </div>
+            <div class="card vital">
+                <img src="icons/heart.png" alt="Pulso cardíaco" class="ico">
+                <h3>Pulso cardíaco</h3>
+                <p id="hr">-- BPM</p>
+            </div>
+            <div class="card vital">
+                <img src="icons/o2.png" alt="Oxigenación" class="ico">
+                <h3>Oxigenación</h3>
+                <p id="spo2">-- %SpO2</p>
+            </div>
+            <div class="card vital">
+                <img src="icons/bp.png" alt="Presión arterial" class="ico">
+                <h3>Presión arterial</h3>
+                <p id="bp">-- mmHg</p>
+            </div>
+            <!-- Pantalla de Síntomas -->
+            <section class="screenS" id="symptoms">
+                <h2 class="title">¿Tienes algún síntoma más?</h2>
+                <form id="symptom-form" class="card symptoms">
+                <label><input type="checkbox" value="cefalea"> Cefalea</label><br>
+                <label><input type="checkbox" value="mareos"> Mareos</label><br>
+                <label><input type="checkbox" value="tos"> Tos</label><br>
+                <label><input type="checkbox" value="fiebre"> Fiebre</label><br>
+                <label><input type="checkbox" value="dolor_pecho"> Dolor de pecho</label>
+                </form>
+                <div class="actions">
+                <button class="btn" onclick="goTo('confirm')">Finalizar</button>
+                </div>
+            </section>
+            
         </div>
-        <div class="card vital">
-            <img src="icons/heart.png" alt="Pulso cardíaco" class="ico">
-            <h3>Pulso cardíaco</h3>
-            <p id="hr">-- BPM</p>
-        </div>
-        <div class="card vital">
-            <img src="icons/o2.png" alt="Oxigenación" class="ico">
-            <h3>Oxigenación</h3>
-            <p id="spo2">-- %SpO2</p>
-        </div>
-        <div class="card vital">
-            <img src="icons/bp.png" alt="Presión arterial" class="ico">
-            <h3>Presión arterial</h3>
-            <p id="bp">-- mmHg</p>
-        </div>
-        </div>
-        <div class="actions">
+
+        <!-- <div class="actions">
         <button class="btn" onclick="goTo('symptoms')">Agregar síntomas</button>
-        </div>
+        </div> -->
+
     </section>
 
-    <!-- Pantalla de Síntomas -->
-    <section class="screen" id="symptoms">
-        <h2 class="title">¿Tienes algún síntoma?</h2>
-        <form id="symptom-form" class="card symptoms">
-        <label><input type="checkbox" value="cefalea"> Cefalea</label><br>
-        <label><input type="checkbox" value="mareos"> Mareos</label><br>
-        <label><input type="checkbox" value="tos"> Tos</label><br>
-        <label><input type="checkbox" value="fiebre"> Fiebre</label><br>
-        <label><input type="checkbox" value="dolor_pecho"> Dolor de pecho</label>
-        </form>
-        <div class="actions">
-        <button class="btn" onclick="goTo('confirm')">Finalizar</button>
-        </div>
-    </section>
+
 
     <!-- Pantalla de Confirmación -->
     <section class="screen" id="confirm">
