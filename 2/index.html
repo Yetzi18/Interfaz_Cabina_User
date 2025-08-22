@@ -18,7 +18,7 @@
     <!-- 1. Bienvenida -->
     <section class="screen active" id="welcome">
         <div class="center">
-        <h1>Bienvenido/a</h1>
+        <h1>Bienvenido/a </h1>
         <img src="resource/img/AsistLogo-Photoroom.png" alt="Asist IoT" class="logo-big"/>
         <p>Cabina de Atención Primaria. Aquí mediremos tus signos vitales en pocos segundos.</p>
         <div class="icons-row">
@@ -34,19 +34,20 @@
     <!-- 2. Identificación (manual) -->
     <section class="screen" id="register">
         <div class="center card">
+        <img src="resource/img/AsistLogo-Photoroom.png" alt="Asist IoT" class="logo-big"/>
         <h2>Identificación del Paciente</h2>
         <form id="register-form" onsubmit="event.preventDefault(); submitRegister();">
             <div class="grid-form">
             <div class="field">
-                <label for="rut">RUT/ID</label>
+                <label for="rut">RUT</label>
                 <input type="text" id="rut" placeholder="Ej: 12345678-9" maxlength="9" required>
             </div>
             <div class="field">
-                <label for="nombre">Nombre(s)</label>
+                <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" placeholder="Ej: Juan Carlos" required>
             </div>
             <div class="field">
-                <label for="apellido">Apellido(s)</label>
+                <label for="apellido">Apellido</label>
                 <input type="text" id="apellido" placeholder="Ej: Pérez Soto" required>
             </div>
             <div class="field">
@@ -74,13 +75,14 @@
 
     <!-- 3. Instrucciones Previas -->
     <section class="screen" id="instructions">
+        <img src="resource/img/AsistLogo-Photoroom.png" alt="Asist IoT" class="logo-big"/>
         <h2>Antes de comenzar</h2>
         <ul class="instructions-list">
         <li>Coloca tu brazo en el soporte.</li>
         <li>Apoya tu dedo índice en el sensor de pulso.</li>
         <li>Mantén la calma y respira normalmente.</li>
         </ul>
-        <img src="icons/demo.gif" alt="Animación guía" class="demo-img">
+        <img src="resource/img/lelelele-fotor-bg-remover-20250822124453.png" alt="Animación guía" class="demo-img">
         <button class="btn" onclick="goTo('measuring')">Comenzar medición</button>
     </section>
 
@@ -91,19 +93,19 @@
         <p id="progress-text">0%</p>
         <div class="grid-2x2">
         <div class="card vital">
-            <img src="icons/temp.png" class="ico" alt="">
+            <img src="resource/img/temperatura.png" class="ico" alt="">
             <h3>Temperatura</h3><p id="m-temp">--</p>
         </div>
         <div class="card vital">
-            <img src="icons/bp.png" class="ico" alt="">
+            <img src="resource/img/presion.png" class="ico" alt="">
             <h3>Presión</h3><p id="m-bp">--</p>
         </div>
         <div class="card vital">
-            <img src="icons/heart.png" class="ico" alt="">
+            <img src="resource/img/pulso.png" class="ico" alt="">
             <h3>Pulso</h3><p id="m-hr">--</p>
         </div>
         <div class="card vital">
-            <img src="icons/o2.png" class="ico" alt="">
+            <img src="resource/img/os2.png" class="ico" alt="">
             <h3>Respiración</h3><p id="m-fr">--</p>
         </div>
         </div>
@@ -112,12 +114,21 @@
 
     <!-- 5. Resultados Inmediatos -->
     <section class="screen" id="results">
+        <img src="resource/img/AsistLogo-Photoroom.png" alt="Asist IoT" class="logo-big"/>
         <h2>Resultados de la medición</h2>
         <div class="grid-2x2">
-        <div class="card"><h3>🌡️ Temperatura</h3><p id="res-temp">--</p></div>
-        <div class="card"><h3>⏱️ Presión arterial</h3><p id="res-bp">--</p></div>
-        <div class="card"><h3>❤️ Pulso</h3><p id="res-hr">--</p></div>
-        <div class="card"><h3>💨 Frec. respiratoria</h3><p id="res-fr">--</p></div>
+            <div class="card">
+                <h3>Temperatura</h3><p id="res-temp">--</p>
+            </div>
+            <div class="card">
+                <h3>Presión arterial</h3><p id="res-bp">--</p>
+            </div>
+            <div class="card"><h3>Pulso</h3>
+                <p id="res-hr">--</p>
+            </div>
+            <div class="card">
+                <h3>Frec. respiratoria</h3><p id="res-fr">--</p>
+            </div>
         </div>
         <p><small>Fecha y hora: <span id="res-datetime"></span></small></p>
         <p>✅ Tus resultados se han registrado correctamente en tu historial.</p>
@@ -139,6 +150,7 @@
 
     <!-- 7. Confirmación Final + Prioridad -->
     <section class="screen" id="final">
+        <img src="resource/img/AsistLogo-Photoroom.png" alt="Asist IoT" class="logo-big"/>
         <h2>¡Proceso finalizado!</h2>
         <p>✅ Tus datos han sido enviados al centro médico. Un profesional revisará tu prioridad de atención.</p>
         <div id="priority-box" class="priority normal">
