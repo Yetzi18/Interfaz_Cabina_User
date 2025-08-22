@@ -25,7 +25,10 @@ header {
     font-weight: bold;
 }
 .logo { width: 40px; }
-.logo-big { width: 150px; margin-bottom: 16px; }
+.logo-big { 
+    width: 50%; 
+    margin-bottom: 16px; 
+}
 
 /* Screens */
 .screen {
@@ -38,7 +41,13 @@ header {
     flex-direction: column;
 }
 #welcome { min-height: 100vh; } /* sin topbar */
-.screen.active { display: flex; }
+.screen.active { 
+    display: flex; 
+    background-color: rgb(111, 179, 243);
+    width: 50%;
+    margin: auto;
+    border-radius: 20px;
+}
 
 /* Cards & grid */
 .card {
@@ -93,7 +102,7 @@ header {
 .field { text-align: left; }
 .field label { font-weight: bold; display: block; margin-bottom: 6px; }
 .field input, .field select {
-    width: 100%;
+    width: 90%;
     padding: 12px;
     border-radius: 10px;
     border: none;
@@ -129,7 +138,7 @@ header {
     height: 100%;
     width: 0;
     transition: width .4s;
-}
+    }
 .alert {
     background: #b13a3a;
     padding: 10px;
@@ -149,3 +158,8 @@ header {
 
 .hidden { display: none; }
 .actions { margin-top: 10px; }
+
+
+h1{
+    font-size: 50px;
+}
