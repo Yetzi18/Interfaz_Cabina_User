@@ -78,9 +78,11 @@ header {
 }
 
 .card.vital{
+    width: 70%;
     background: #8aa3c3;
     border-radius: 20px;
     padding: 20px;
+    margin-left: 40px;
     box-shadow: 5px 5px 15px 10px rgb(207, 206, 206);
 }
 
@@ -148,7 +150,6 @@ header {
     width: 50%;
     background-color: white;
     border-radius: 20px;
-    padding: 20px;
     border: 2px solid rgb(253, 253, 253);
     transition: box-shadow 0.6s ease;
     box-shadow: 0 0 10px rgb(0, 162, 255), 0 0 20px rgb(83, 172, 224);
@@ -168,4 +169,26 @@ header {
     justify-content: center;
     width: 100%;
     margin-left: 200px;
+}
+
+/* ... estilos previos ... */
+
+.field {
+    margin: 15px 0;
+    text-align: left;
+}
+
+.field label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.field input, 
+.field select {
+    width: 90%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1em;
 }

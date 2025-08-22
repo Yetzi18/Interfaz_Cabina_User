@@ -21,9 +21,48 @@
         <h1>BIENVENIDO</h1>
         <img src="resource/img/AsistLogo-Photoroom.png" alt="Asist IoT" class="logo">
         <p>Mediremos tus signos vitales de forma rápida y segura.</p>
-        <button class="btn" onclick="goTo('vitals')">Continuar</button>
+        <button class="btn" onclick="goTo('register')">Continuar</button>
         </div>
     </section>
+
+    <!-- Pantalla de Registro -->
+    <!-- Pantalla de Registro -->
+    <section class="screen" id="register">
+    <div class="center card">
+        <h2>Registro del Paciente</h2>
+        <form id="register-form">
+        <div class="field">
+            <label for="rut">RUT</label>
+            <input type="text" id="rut" placeholder="Ej: 12345678-9" maxlength="9" required>
+        </div>
+        <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" placeholder="Ej: Juan Carlos" required>
+        </div>
+        <div class="field">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" placeholder="Ej: Pérez Soto" required>
+        </div>
+        <div class="field">
+            <label for="edad">Edad</label>
+            <input type="number" id="edad" placeholder="Ej: 30" min="1" max="100" required>
+        </div>
+        <div class="field">
+            <label for="sexo">Sexo</label>
+            <select id="sexo" required>
+            <option value="">Seleccione</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Otro">Otro</option>
+            </select>
+        </div>
+        <div class="actions">
+            <button type="button" class="btn" onclick="submitRegister()">Guardar y Continuar</button>
+        </div>
+        </form>
+    </div>
+    </section>
+
 
 
     <!-- Pantalla de Signos Vitales -->
@@ -43,7 +82,7 @@
                 <p id="hr">-- BPM</p>
             </div>
             <div class="card vital">
-                <img src="resource/img/o2.png".png" alt="Oxigenación" class="ico">
+                <img src="resource/img/os2.png".png" alt="Oxigenación" class="ico">
                 <h3>Oxigenación</h3>
                 <p id="spo2">-- %SpO2</p>
             </div>
