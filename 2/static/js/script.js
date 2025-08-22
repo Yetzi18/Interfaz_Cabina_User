@@ -4,9 +4,9 @@ const state = {
     vitals: null,
     sintomas: [],
     prioridad: { nivel: "Bajo", causa: "" }
-    };
+};
 
-    function goTo(id) {
+function goTo(id) {
     document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 
@@ -18,7 +18,7 @@ const state = {
     if (id === "measuring") startMeasurement();
     if (id === "results") showResults();
     if (id === "final") showPriority();
-    }
+}
 
 /* -------- Identificación (manual) -------- */
 function submitRegister() {
@@ -92,7 +92,7 @@ function updateMeasuringTiles(v) {
 
 /* -------- Resultados + Prioridad -------- */
 function showResults() {
-  // Si por alguna razón no hay vitals aún, simulamos una toma final
+    // Si por alguna razón no hay vitals aún, simulamos una toma final
     if (!state.vitals) state.vitals = simulateFinalVitals();
 
     const { temp, sys, dia, hr, fr } = state.vitals;
@@ -122,15 +122,15 @@ function showPriority() {
     // Guardar síntomas (opcional) — solo en memoria para esta sesión
     const selected = [...document.querySelectorAll("#symptom-form input:checked")].map(i => i.value);
     state.sintomas = selected;
-}
+    }
 
-/* -------- Evaluación de prioridad (reglas simples) --------
+    /* -------- Evaluación de prioridad (reglas simples) --------
     Reglas (ejemplo):
     - Alto (rojo): HR < 40 o > 130 | PAS >= 180 o PAD >= 120 | Temp >= 39.5 o <= 35 | FR >= 30 o <= 8
     - Medio (amarillo): HR 100–130 o 40–50 | PAS 140–179 o PAD 90–119 | Temp 38–39.4 | FR 21–29
     - Bajo (verde): resto
-    */
-    function evaluarPrioridad(v) {
+*/
+function evaluarPrioridad(v) {
     let nivel = "Bajo";
     const motivos = [];
 
@@ -173,7 +173,7 @@ function finishAndReset() {
 
 /* ====== Simulación de sensores (reemplazar en producción) ====== */
 function simulateSensorStream() {
-  // Generamos valores cada tick dentro de rangos razonables
+    // Generamos valores cada tick dentro de rangos razonables
     return {
         temp: randRange(36.0, 37.5),
         sys: Math.round(randRange(110, 150)),
