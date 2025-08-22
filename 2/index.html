@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Asist IoT – Cabina Paciente</title>
+    <link rel="stylesheet" href="static/css/style.css"/>
+</head>
+<body>
+    <!-- Topbar (oculto en bienvenida) -->
+    <header id="topbar">
+        <div class="logo-box">
+        <img src="resource/img/AsistLogo-Photoroom.png" alt="Asist IoT" class="logo"/>
+        <span>Asist IoT</span>
+        </div>
+    </header>
+
+    <!-- 1. Bienvenida -->
+    <section class="screen active" id="welcome">
+        <div class="center">
+        <h1>Bienvenido/a</h1>
+        <img src="resource/img/AsistLogo-Photoroom.png" alt="Asist IoT" class="logo-big"/>
+        <p>Cabina de Atención Primaria. Aquí mediremos tus signos vitales en pocos segundos.</p>
+        <div class="icons-row">
+            <div class="icon-box"><img src="icons/sit.png" alt=""><span>Siéntate</span></div>
+            <div class="icon-box"><img src="icons/arm.png" alt=""><span>Coloca el brazo</span></div>
+            <div class="icon-box"><img src="icons/finger.png" alt=""><span>Apoya el dedo</span></div>
+            <div class="icon-box"><img src="icons/breath.png" alt=""><span>Respira normal</span></div>
+        </div>
+        <button class="btn" onclick="goTo('register')">Iniciar medición</button>
+        </div>
+    </section>
+
+    <!-- 2. Identificación (manual) -->
+    <section class="screen" id="register">
+        <div class="center card">
+        <h2>Identificación del Paciente</h2>
+        <form id="register-form" onsubmit="event.preventDefault(); submitRegister();">
+            <div class="grid-form">
+            <div class="field">
+                <label for="rut">RUT/ID</label>
+                <input type="text" id="rut" placeholder="Ej: 12345678-9" maxlength="9" required>
+            </div>
+            <div class="field">
+                <label for="nombre">Nombre(s)</label>
+                <input type="text" id="nombre" placeholder="Ej: Juan Carlos" required>
+            </div>
+            <div class="field">
+                <label for="apellido">Apellido(s)</label>
+                <input type="text" id="apellido" placeholder="Ej: Pérez Soto" required>
+            </div>
+            <div class="field">
+                <label for="edad">Edad</label>
+                <input type="number" id="edad" placeholder="Ej: 35" min="1" max="120" required>
+            </div>
+            <div class="field">
+                <label for="genero">Género</label>
+                <select id="genero" required>
+                <option value="">Seleccione</option>
+                <option>Femenino</option>
+                <option>Masculino</option>
+                <option>Otro</option>
+                <option>Prefiero no decir</option>
+                </select>
+            </div>
+            </div>
+            <div class="actions">
+            <button type="submit" class="btn">Confirmar y continuar</button>
+            </div>
+        </form>
+        <div id="identity-confirm" class="confirm-box hidden"></div>
+        </div>
+    </section>
+
+    <!-- 3. Instrucciones Previas -->
+    <section class="screen" id="instructions">
+        <h2>Antes de comenzar</h2>
+        <ul class="instructions-list">
+        <li>Coloca tu brazo en el soporte.</li>
+        <li>Apoya tu dedo índice en el sensor de pulso.</li>
+        <li>Mantén la calma y respira normalmente.</li>
+        </ul>
+        <img src="icons/demo.gif" alt="Animación guía" class="demo-img">
+        <button class="btn" onclick="goTo('measuring')">Comenzar medición</button>
+    </section>
+
+    <!-- 4. Medición Automática -->
+    <section class="screen" id="measuring">
+        <h2>Estamos midiendo tus signos vitales</h2>
+        <div class="progress-bar"><div id="progress"></div></div>
+        <p id="progress-text">0%</p>
+        <div class="grid-2x2">
+        <div class="card vital">
+            <img src="icons/temp.png" class="ico" alt="">
+            <h3>Temperatura</h3><p id="m-temp">--</p>
+        </div>
+        <div class="card vital">
+            <img src="icons/bp.png" class="ico" alt="">
+            <h3>Presión</h3><p id="m-bp">--</p>
+        </div>
+        <div class="card vital">
+            <img src="icons/heart.png" class="ico" alt="">
+            <h3>Pulso</h3><p id="m-hr">--</p>
+        </div>
+        <div class="card vital">
+            <img src="icons/o2.png" class="ico" alt="">
+            <h3>Respiración</h3><p id="m-fr">--</p>
+        </div>
+        </div>
+        <p id="sensor-alert" class="alert hidden">Por favor, ajusta tu brazo o dedo en el sensor.</p>
+    </section>
+
+    <!-- 5. Resultados Inmediatos -->
+    <section class="screen" id="results">
+        <h2>Resultados de la medición</h2>
+        <div class="grid-2x2">
+        <div class="card"><h3>🌡️ Temperatura</h3><p id="res-temp">--</p></div>
+        <div class="card"><h3>⏱️ Presión arterial</h3><p id="res-bp">--</p></div>
+        <div class="card"><h3>❤️ Pulso</h3><p id="res-hr">--</p></div>
+        <div class="card"><h3>💨 Frec. respiratoria</h3><p id="res-fr">--</p></div>
+        </div>
+        <p><small>Fecha y hora: <span id="res-datetime"></span></small></p>
+        <p>✅ Tus resultados se han registrado correctamente en tu historial.</p>
+        <button class="btn" onclick="goTo('symptoms')">Agregar síntomas</button>
+    </section>
+
+    <!-- 6. Observaciones / Síntomas (opcional) -->
+    <section class="screen" id="symptoms">
+        <h2>¿Presentas alguno de estos síntomas?</h2>
+        <form id="symptom-form" class="card symptoms">
+        <label><input type="checkbox" value="Dolor de cabeza"> Dolor de cabeza</label><br>
+        <label><input type="checkbox" value="Mareo"> Mareo</label><br>
+        <label><input type="checkbox" value="Fiebre"> Fiebre</label><br>
+        <label><input type="checkbox" value="Dificultad respiratoria"> Dificultad respiratoria</label><br>
+        <label><input type="checkbox" value="Otros"> Otros</label>
+        </form>
+        <button class="btn" onclick="goTo('final')">Enviar</button>
+    </section>
+
+    <!-- 7. Confirmación Final + Prioridad -->
+    <section class="screen" id="final">
+        <h2>¡Proceso finalizado!</h2>
+        <p>✅ Tus datos han sido enviados al centro médico. Un profesional revisará tu prioridad de atención.</p>
+        <div id="priority-box" class="priority normal">
+        <p>Nivel de prioridad: <span id="priority-level">Bajo</span></p>
+        <small id="priority-cause"></small>
+        </div>
+        <button class="btn" onclick="finishAndReset()">Finalizar</button>
+    </section>
+
+    <script src="static/js/script.js"></script>
+</body>
+</html>
