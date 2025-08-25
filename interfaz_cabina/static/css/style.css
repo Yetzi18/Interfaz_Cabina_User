@@ -40,7 +40,10 @@ header {
     justify-content: center;
     flex-direction: column;
 }
-#welcome { min-height: 100vh; } /* sin topbar */
+#welcome { 
+    min-height: 95vh;
+    margin: 20px auto;
+} /* sin topbar */
 .screen.active { 
     display: flex; 
     background-color: rgb(111, 179, 243);
