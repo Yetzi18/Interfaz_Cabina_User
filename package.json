@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  },
+  "name": "interfaz_cabina_user",
+  "version": "1.0.0",
+  "description": "Visualización del usuario al utilizar la cabina",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yetzi18/Interfaz_Cabina_User.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yetzi18/Interfaz_Cabina_User/issues"
+  },
+  "homepage": "https://github.com/Yetzi18/Interfaz_Cabina_User#readme"
+}
