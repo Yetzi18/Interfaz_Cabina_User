@@ -46,67 +46,99 @@ function submitRegister() {
     setTimeout(() => goTo("instructions"), 900);
 }
 
-/* -------- Medición automática -------- */
-// En producción: remplazar simulateSensorStream por datos reales (WebSocket/Serial/API)
+// /* -------- Medición automática -------- */
+// // En producción: remplazar simulateSensorStream por datos reales (WebSocket/Serial/API)
+// function startMeasurement() {
+//     // Reiniciar UI medición
+//     document.getElementById("progress").style.width = "0%";
+//     document.getElementById("progress-text").textContent = "0%";
+//     document.getElementById("sensor-alert").classList.add("hidden");
+//     ["m-temp","m-bp","m-hr","m-fr"].forEach(id => document.getElementById(id).textContent = "--");
+
+//     let progress = 0;
+//     const step = () => {
+//         if (progress >= 100) {
+//         // Al finalizar, guardamos vitals y avanzamos
+//         goTo("results");
+//         return;
+//         }
+//         progress += 10;
+//         document.getElementById("progress").style.width = progress + "%";
+//         document.getElementById("progress-text").textContent = progress + "%";
+
+//         // Simular lectura parcial y alertas a mitad
+//         if (progress === 50) {
+//         document.getElementById("sensor-alert").classList.remove("hidden");
+//         setTimeout(()=>document.getElementById("sensor-alert").classList.add("hidden"), 1500);
+//         }
+//         // Simular streaming de sensores
+//         const partial = simulateSensorStream();
+//         updateMeasuringTiles(partial);
+
+//         setTimeout(step, 400);
+//     };
+//     step();
+// }
+
 function startMeasurement() {
-    // Reiniciar UI medición
+    // Reiniciar UI
     document.getElementById("progress").style.width = "0%";
     document.getElementById("progress-text").textContent = "0%";
-    document.getElementById("sensor-alert").classList.add("hidden");
-    ["m-temp","m-bp","m-hr","m-fr"].forEach(id => document.getElementById(id).textContent = "--");
+    ["m-temp","m-bpm","m-spo2"].forEach(id => document.getElementById(id).textContent = "--");
 
+    // Simulamos solo la barra de progreso
     let progress = 0;
     const step = () => {
         if (progress >= 100) {
-        // Al finalizar, guardamos vitals y avanzamos
-        goTo("results");
-        return;
+            goTo("results");
+            return;
         }
         progress += 10;
         document.getElementById("progress").style.width = progress + "%";
         document.getElementById("progress-text").textContent = progress + "%";
-
-        // Simular lectura parcial y alertas a mitad
-        if (progress === 50) {
-        document.getElementById("sensor-alert").classList.remove("hidden");
-        setTimeout(()=>document.getElementById("sensor-alert").classList.add("hidden"), 1500);
-        }
-        // Simular streaming de sensores
-        const partial = simulateSensorStream();
-        updateMeasuringTiles(partial);
 
         setTimeout(step, 400);
     };
     step();
 }
 
+// Ya no necesitamos simulateSensorStream ni simulateFinalVitals
+// Los datos reales se reciben por socket y se muestran mediante updateMeasuringTiles()
+
 function updateMeasuringTiles(v) {
     if (!v) return;
-    document.getElementById("m-temp").textContent = v.temp ? `${v.temp.toFixed(1)} °C` : "--";
-    document.getElementById("m-bp").textContent   = (v.sys && v.dia) ? `${v.sys}/${v.dia} mmHg` : "--";
-    document.getElementById("m-hr").textContent   = v.hr ? `${v.hr} BPM` : "--";
-    document.getElementById("m-fr").textContent   = v.fr ? `${v.fr} rpm` : "--";
-    // Guardamos último paquete
-    state.vitals = { temp: v.temp, sys: v.sys, dia: v.dia, hr: v.hr, fr: v.fr, spo2: v.spo2 ?? 96 };
+
+    // Temperatura
+    document.getElementById("m-temp").textContent = v.temp !== undefined ? `${v.temp.toFixed(1)} °C` : "--";
+
+    // Pulso / frecuencia cardíaca
+    document.getElementById("m-bpm").textContent = v.bpm !== undefined ? `${v.bpm} BPM` : "--";
+
+    // Saturación de oxígeno (SpO2)
+    document.getElementById("m-spo2").textContent = v.spo2 !== undefined ? `${v.spo2} %` : "--";
+
+    // Guardar en el estado
+    state.vitals = v;
 }
 
-/* -------- Resultados + Prioridad -------- */
 function showResults() {
-    // Si por alguna razón no hay vitals aún, simulamos una toma final
-    if (!state.vitals) state.vitals = simulateFinalVitals();
+    if (!state.vitals) return; // no hay datos
 
-    const { temp, sys, dia, hr, fr } = state.vitals;
+    const { temp, bpm, fr, spo2 } = state.vitals;
     const now = new Date();
 
-    document.getElementById("res-temp").textContent = `${temp.toFixed(1)} °C`;
-    document.getElementById("res-bp").textContent   = `${sys}/${dia} mmHg`;
-    document.getElementById("res-hr").textContent   = `${hr} BPM`;
-    document.getElementById("res-fr").textContent   = `${fr} rpm`;
+    // Mostrar en la pantalla de resultados
+    document.getElementById("res-temp").textContent = temp !== undefined ? `${temp.toFixed(1)} °C` : "--";
+    document.getElementById("res-hr").textContent = bpm !== undefined ? `${bpm} BPM` : "--";
+    document.getElementById("res-fr").textContent = fr !== undefined ? `${fr} rpm` : "--";
+
+    // Fecha y hora
     document.getElementById("res-datetime").textContent = now.toLocaleString();
 
     // Calcular prioridad
     state.prioridad = evaluarPrioridad(state.vitals);
 }
+
 
 function showPriority() {
     const box = document.getElementById("priority-box");
@@ -171,29 +203,29 @@ function finishAndReset() {
     goTo("welcome");
 }
 
-/* ====== Simulación de sensores (reemplazar en producción) ====== */
-function simulateSensorStream() {
-    // Generamos valores cada tick dentro de rangos razonables
-    return {
-        temp: randRange(36.0, 37.5),
-        sys: Math.round(randRange(110, 150)),
-        dia: Math.round(randRange(70, 95)),
-        hr: Math.round(randRange(60, 105)),
-        fr: Math.round(randRange(12, 22)),
-        spo2: Math.round(randRange(94, 99))
-    };
-}
-function simulateFinalVitals() {
-    return {
-        temp: randRange(36.3, 37.2),
-        sys: Math.round(randRange(115, 130)),
-        dia: Math.round(randRange(75, 85)),
-        hr: Math.round(randRange(65, 95)),
-        fr: Math.round(randRange(12, 20)),
-        spo2: Math.round(randRange(95, 99))
-    };
-}
-function randRange(min, max) { return Math.random() * (max - min) + min; }
+// /* ====== Simulación de sensores (reemplazar en producción) ====== */
+// function simulateSensorStream() {
+//     // Generamos valores cada tick dentro de rangos razonables
+//     return {
+//         temp: randRange(36.0, 37.5),
+//         sys: Math.round(randRange(110, 150)),
+//         dia: Math.round(randRange(70, 95)),
+//         hr: Math.round(randRange(60, 105)),
+//         fr: Math.round(randRange(12, 22)),
+//         spo2: Math.round(randRange(94, 99))
+//     };
+// }
+// function simulateFinalVitals() {
+//     return {
+//         temp: randRange(36.3, 37.2),
+//         sys: Math.round(randRange(115, 130)),
+//         dia: Math.round(randRange(75, 85)),
+//         hr: Math.round(randRange(65, 95)),
+//         fr: Math.round(randRange(12, 20)),
+//         spo2: Math.round(randRange(95, 99))
+//     };
+// }
+// function randRange(min, max) { return Math.random() * (max - min) + min; }
 
 /* ====== Integración real con Raspberry (sustituir simulación) ======
     - WebSocket: abrir ws://<raspberry-ip>:<port> y recibir JSON {temp, sys, dia, hr, fr, spo2}

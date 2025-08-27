@@ -97,16 +97,12 @@
             <h3>Temperatura</h3><p id="m-temp">--</p>
         </div>
         <div class="card vital">
-            <img src="resources/img/presion.png" class="ico" alt="">
-            <h3>Presión</h3><p id="m-bp">--</p>
-        </div>
-        <div class="card vital">
             <img src="resources/img/pulso.png" class="ico" alt="">
-            <h3>Pulso</h3><p id="m-hr">--</p>
+            <h3>Pulso</h3><p id="m-bpm">--</p>
         </div>
         <div class="card vital">
             <img src="resources/img/os2.png" class="ico" alt="">
-            <h3>Respiración</h3><p id="m-fr">--</p>
+            <h3>Respiración</h3><p id="m-spo2">--</p>
         </div>
         </div>
         <p id="sensor-alert" class="alert hidden">Por favor, ajusta tu brazo o dedo en el sensor.</p>
@@ -120,14 +116,11 @@
             <div class="card">
                 <h3>Temperatura</h3><p id="res-temp">--</p>
             </div>
-            <div class="card">
-                <h3>Presión arterial</h3><p id="res-bp">--</p>
-            </div>
             <div class="card"><h3>Pulso</h3>
-                <p id="res-hr">--</p>
+                <p id="res-bpm">--</p>
             </div>
             <div class="card">
-                <h3>Frec. respiratoria</h3><p id="res-fr">--</p>
+                <h3>Frec. respiratoria</h3><p id="res-spo2">--</p>
             </div>
         </div>
         <p><small>Fecha y hora: <span id="res-datetime"></span></small></p>
@@ -160,6 +153,8 @@
         <button class="btn" onclick="finishAndReset()">Finalizar</button>
     </section>
 
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/socket.io.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
